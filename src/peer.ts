@@ -1,6 +1,7 @@
 import type { Instance as Peer, SignalData } from 'simple-peer';
 import { Observable, Subject } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
+import { agent } from '@cloudpss/fetch';
 import { DefaultEncoding } from './encoding.js';
 import type { Encoding } from './encoding.js';
 import { wrtc, SimplePeer } from './polyfill.js';
@@ -49,6 +50,7 @@ export class Peers {
 
         this._socket = io(url.origin, {
             path: `${url.pathname}socket.io`,
+            agent: agent as false,
             auth: {
                 token: config.token,
                 room: config.room,
